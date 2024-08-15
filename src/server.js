@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const loginController = require("./controllers/loginController")
+const cadastroController = require("./controllers/cadastroController")
+const eventoController = require("./controllers/eventoController")
 
 // Configuração do body-parser
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,6 +32,9 @@ enableHotReload(app);
 
 // Rotas
 app.get("/" , loginController.exibirPaginaDeLogin);
+app.get("/criar-conta" , cadastroController.exibirPaginaDeCadastro);
+app.get("/eventos" , eventoController.exibirPaginaDeEventos);
+app.get("/criareventos" , eventoController.exibirPaginaDeCriarEvento);
 
 // Inicie o servidor
 const port = 3000;
