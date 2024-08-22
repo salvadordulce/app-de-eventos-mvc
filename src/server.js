@@ -32,7 +32,7 @@ enableHotReload(app);
 
 // Rotas
 app.get("/" , loginController.exibirPaginaDeLogin);
-app.get("/criar-conta" , cadastroController.exibirPaginaDeCadastro);
+app.get("/criarconta" , cadastroController.exibirPaginaDeCadastro);
 app.get("/eventos" , eventoController.exibirPaginaDeEventos);
 app.get("/criareventos" , eventoController.exibirPaginaDeCriarEvento);
 
