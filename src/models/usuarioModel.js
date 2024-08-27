@@ -1,3 +1,5 @@
+const md5 = require('md5');
+
 const usuarios = [];
 
 function adicionarUsuario(nome, email, senha) {
@@ -5,9 +7,9 @@ function adicionarUsuario(nome, email, senha) {
         Id: Date.now(),
         Nome: nome,
         Email: email,
-        Senha: senha,
+        Senha: md5(senha),
         criadoEm: new Date()
-    })
+    });
 
     console.log(usuarios);
 }
