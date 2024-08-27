@@ -18,16 +18,16 @@
             <small>Crie sua conta e tenha total acesso a criação
                 e listagem de eventos pertinho de você 😍😍</small>
             <div>
-                <form>
+                <form action="/novousuario" method="post">
                     <h1>Criar conta</h1>
                     <label for="nome">Nome</label>
-                    <input type="nome" name="nome" id="nome" placeholder="Digite o nome">
+                    <input type="text" name="nome" id="nome" placeholder="Digite o nome">
                     <label for="CPF">CPF</label>
-                    <input type="CPF" name="CPF" id="CPF" placeholder="Digite o CPF">
+                    <input type="text" name="CPF" id="CPF" placeholder="Digite o CPF">
                     <label for="email">E-mail</label>
                     <input type="email" name="email" id="email" placeholder="Digite o e-mail">
-                    <label for="criarpassword">Criar senha</label>
-                    <input type="password" name="criarpassword" id="criarpassword" placeholder="Digite a senha">
+                    <label for="password">Criar senha</label>
+                    <input type="password" name="senha" id="password" placeholder="Digite a senha">
                     <button type="submit">Criar conta</button>
                     <a href="/">
                         <p>Já possui conta? Entrar agora mesmo</p>
