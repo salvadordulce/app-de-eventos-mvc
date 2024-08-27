@@ -1,7 +1,7 @@
 const eventos = [];
 
 function adicionarEvento(nome, data, local) {
-    usuarios.push({
+    eventos.push({
         Id: Date.now(),
         Nome: nome,
         Data: data,
