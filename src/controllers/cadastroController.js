@@ -13,7 +13,7 @@ function adicionarUsuario(request, response) {
     usuarioModel.adicionarUsuario(nome, email, senha);
 
     //Redirecionar para a página de login
-    response.redirect('/');
+    // response.redirect('/');
 }
 
 module.exports = {
