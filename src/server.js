@@ -3,16 +3,18 @@ const path = require("path");
 const enableHotReload = require("./hot-reload");
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const autenticarMiddleware = require("./middlewares/autenticar");
 
 const loginController = require("./controllers/loginController")
 const cadastroController = require("./controllers/cadastroController")
 const eventoController = require("./controllers/eventoController")
 
 // Configuração do body-parser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurando o body - parser
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 
 // Configurações do seu app Express
@@ -26,28 +28,38 @@ console.log("Views path set to:", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 console.log("Static files path set to:", path.join(__dirname, "public"));
 
+// Configuração do express-session
+app.use(session({
+    secret: "chave-super-secreta",
+    resave: false,
+    saveUninitialized: false,
+}));
+
 // Habilitar hot-reload
 
 enableHotReload(app);
 
 //Rota para página de login
-app.get("/" , loginController.exibirPaginaDeLogin);
+app.get("/", loginController.exibirPaginaLogin);
+
+//Rota para autenticar usuario
+app.post("/autenticar", loginController.autenticarUsuario);
 
 //Rota para página de cadastro
-app.get("/criarconta" , cadastroController.exibirPaginaDeCadastro);
+app.get("/criarconta", cadastroController.exibirPaginaDeCadastro);
 
 //Rota para criar um novo usuario
 app.post("/novousuario", cadastroController.adicionarUsuario);
 
 //Rota para página da listagem de eventos
-app.get("/eventos" , eventoController.exibirPaginaDeEventos);
+app.get("/eventos", autenticarMiddleware.protegerRotaUsuario, eventoController.exibirPaginaDeEventos);
 
 //Rota para página de criar um novo evento
-app.get("/criareventos" , eventoController.exibirPaginaDeCriarEvento);
+app.get("/criar-evento", autenticarMiddleware.protegerRotaAdministrador,  eventoController.exibirPaginaDeCriarEvento);
 
 //Rota para criar um novo evento
-app.post("/novoevento", eventoController.adicionarEvento);
+app.get("/criar-evento", autenticarMiddleware.protegerRotaAdministrador,  eventoController.adicionarEvento);
 
 // Inicie o servidor
 const port = 3000;
-app.listen(port, () => { console.log(`Servidor rodando em http://localhost:${port}`);});
+app.listen(port, () => { console.log(`Servidor rodando em http://localhost:${port}`); });
